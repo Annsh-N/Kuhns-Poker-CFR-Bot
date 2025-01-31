@@ -1,20 +1,22 @@
 import random
+import pickle
 
 def deal_cards():
-    cards = [1, 2, 3]
+    cards = ['K', 'Q', 'J']
     random.shuffle(cards)
     return cards[:2]
 
 def get_winner(card1, card2):
-    return 1 if card1 > card2 else -1
+    card_ranks = {'K': 3, 'Q': 2, 'J': 1}
+    return 1 if card_ranks[card1] > card_ranks[card2] else -1
 
 def play_hand(strategy, cards):
     history = ''
     player_card, opponent_card = cards
     
-    if strategy.get((player_card, history), [0.5, 0.5])[1] > 0.5:
+    if random.random() < strategy.get(str(player_card) + history, [0.5, 0.5])[1]:
         history += 'b'
-        if strategy.get((opponent_card, history), [0.5, 0.5])[1] > 0.5:
+        if random.random() < strategy.get(str(opponent_card) + history, [0.5, 0.5])[1]:
             return get_winner(player_card, opponent_card) * 2
     return get_winner(player_card, opponent_card)
 
@@ -24,7 +26,6 @@ def simulate(strategy, games=1000):
 
 if __name__ == '__main__':
     with open('cfr_training_data.pkl', 'rb') as f:
-        import pickle
         strategy = pickle.load(f)
     
-    print('Expected value:', simulate(strategy))
+    print('Expected value over 1000 games:', simulate(strategy, 1000))
