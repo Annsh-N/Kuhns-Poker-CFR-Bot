@@ -48,7 +48,8 @@ def cfr(cards, history, prob1, prob2, nodes):
     
     for i in range(2):
         regret = util[i] - node_util
-        node.regret_sum[i] += (prob2 if player == 0 else prob1) * regret
+        node.regret_sum[i] += (prob1 * regret) if player == 0 else (prob2 * regret)
+
     
     return node_util
 
@@ -64,4 +65,4 @@ def train(iterations=100000):
     print("Training complete. Strategy saved.")
 
 if __name__ == '__main__':
-    train(100000)
+    train(1000000)
