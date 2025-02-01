@@ -12,7 +12,6 @@ This project implements a poker-playing AI for Kuhn Poker using Counterfactual R
 │── kuhn_poker.py            # Kuhn Poker Game Engine
 │── play_bot.py              # AI playing against a user
 │── test_cfr.py              # Automated tests
-│── cfr_training_data.pkl    # Trained strategy data
 │── README.md                # Project documentation
 ```
 
@@ -63,7 +62,8 @@ Counterfactual Regret Minimization (CFR) is an iterative self-play algorithm whe
 
 ## Future Improvements
 
+- Expand to the actual poker variant. This will require developing a way to categorize cards to reduce the massive amounts of calculations required to optimize poker involving 52 cards.
 - Implementing multiplayer variants.
 - Adding reinforcement learning for deeper decision-making.
-- Improving the UI for a better playing experience.
+- Integrating with a GUI to improve gameplay.
 
