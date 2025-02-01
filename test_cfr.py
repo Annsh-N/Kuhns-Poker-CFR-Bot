@@ -27,7 +27,11 @@ class TestCFR(unittest.TestCase):
         random.shuffle(cards)
         history = ''
         ai_card = cards[1]
-        strategy_used = strategy.get(str(ai_card) + history, [0.5, 0.5])
+
+        # Ensure we fetch the strategy from KuhnNode
+        node = strategy.get(str(ai_card) + history, KuhnNode())
+        strategy_used = node.get_average_strategy()  # Fix applied here
+
         self.assertEqual(len(strategy_used), 2)
         self.assertTrue(all(0 <= s <= 1 for s in strategy_used))
 
